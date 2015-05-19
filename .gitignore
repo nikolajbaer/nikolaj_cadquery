@@ -1,0 +1,8 @@
+.Python
+Mod
+lib
+include
+out.svg
+out.stl
+bin
+*.pyc
