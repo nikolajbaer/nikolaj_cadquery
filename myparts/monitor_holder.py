@@ -2,26 +2,17 @@ import sys,os
 from cadquery import *
 
 class MonitorHolder(object):
-    def __init__(self,workplane):
-        self.wp = workplane
-
-    def _outline(self,cq):
-        cq.lineTo(225.0,0)\
-          .threePointArc((230.0,5.0),(225.0,10.0))\
-          .lineTo(0.0,10.0)\
-          .threePointArc((-5,5.0),(0,0))\
-          .close()        
-        return cq
-
-    def _notch(self,cq):
-        return cq.rect(70,10)
+    def __init__(self,workplane_start="front"):
+        self.wp = Workplane(workplane_start)
 
     def build(self):
-        cq = self._outline(self.wp)\
-            .extrude(20,True)
-        cq = cq.faces(">Z").workplane()\
-             .moveTo(-112.5 + 10,0)\
-             .rect(20,10).cutThruAll()
+        cq = self.wp.box(30,30,5)
+        cq = cq.faces(">Z").rect(28,28).workplane(offset=72-5)\
+                .rect(20,20).loft(combine=True)\
+                .faces(">Z").center(0,-10)\
+                .rect(10,20,False).extrude(5)
+        print cq.all() 
         return cq
+
 
 
