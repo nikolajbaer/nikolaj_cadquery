@@ -2,7 +2,7 @@ import sys,os
 import FreeCAD
 from cadquery import *
 
-class MonitorHolder(object):
+class Part(object):
     def __init__(self,workplane_start="front"):
         self.wp = Workplane(workplane_start)
 
